@@ -1,12 +1,12 @@
 package org.example.cpu;
 
-public class HLd extends Handler {
+public class HSt extends Handler {
     @Override
     void run(Command command, Cpu cpu) throws CpuException{
-        if(command.getName().equals("ld")){
-            String reg = command.getArg1();
+        if(command.getName().equals("st")){
+            String register = command.getArg1();
             String address = command.getArg2();
-            cpu.setRegister(reg, cpu.mem.read(Integer.parseInt(address)));
+            cpu.mem.write(Integer.parseInt(address), cpu.getRegister(register));
         }
         else{
             super.run(command, cpu);

@@ -7,6 +7,10 @@ public class Command {
 
     public Command(String command){
         String[] g = command.split(" ");
+//        for(int i = 0; i<g.length; i++){
+//            System.out.println(g[i]);
+//        }
+//        System.out.print(g);
         if(g.length == 3){
             this.name = g[0];
             this.arg1 = g[1];
@@ -20,6 +24,7 @@ public class Command {
     }
 
     public Command(String name, String arg1, String arg2) {
+//        System.out.println(name);
         this.name = name;
         this.arg1 = arg1;
         this.arg2 = arg2;
