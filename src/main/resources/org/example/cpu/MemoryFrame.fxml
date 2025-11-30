@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx/17.0.2-ea"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="org.example.cpu.MemoryFrameController"
+      spacing="5"
+      style="-fx-padding: 10;">
+
+    <Label text="Состояние памяти" style="-fx-font-size: 14px; -fx-font-weight: bold;"/>
+
+    <ScrollPane fitToWidth="true" prefHeight="200">
+        <GridPane fx:id="memoryGrid" hgap="5" vgap="3"
+                  style="-fx-padding: 5;">
+        </GridPane>
+    </ScrollPane>
+</VBox>
+

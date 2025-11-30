@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<HBox xmlns="http://javafx.com/javafx/17.0.2-ea"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="org.example.cpu.CommandController"
+      spacing="5" style="-fx-padding: 5;"
+      alignment="CENTER_LEFT">
+
+    <Button text="X" onAction="#removeCommand" style="-fx-background-color: #ff4444; -fx-text-fill: white;"/>
+    <Button text="↑" onAction="#moveUp" fx:id="upButton"/>
+    <Button text="↓" onAction="#moveDown" fx:id="downButton"/>
+    <Label fx:id="commandTypeLabel" prefWidth="80"/>
+    <Label fx:id="param1Label" prefWidth="60"/>
+    <Label fx:id="param2Label" prefWidth="60"/>
+
+</HBox>

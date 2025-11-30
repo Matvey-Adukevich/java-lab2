@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/17.0.2-ea"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="org.example.cpu.MainFrameController"
+            prefWidth="1200" prefHeight="700">
+
+    <top>
+        <VBox spacing="10" style="-fx-padding: 10;">
+            <!-- Форма добавления команды строкой -->
+            <HBox spacing="10" alignment="CENTER_LEFT">
+                <Label text="Введите команду:"/>
+                <TextField fx:id="commandInputField" prefWidth="300"/>
+                <Button text="Добавить" onAction="#addCommand"/>
+            </HBox>
+
+            <!-- Кнопки управления -->
+            <HBox spacing="10">
+                <Button text="Сбросить выполнение программы" onAction="#resetExecution"/>
+                <Button text="Выполнить очередную инструкцию" onAction="#executeNextInstruction"/>
+            </HBox>
+        </VBox>
+    </top>
+
+    <left>
+        <VBox spacing="10" style="-fx-padding: 10;" prefWidth="600">
+            <Label text="Программа:" style="-fx-font-size: 14px; -fx-font-weight: bold;"/>
+            <ScrollPane fitToWidth="true">
+                <VBox fx:id="allCommands" spacing="5"/>
+            </ScrollPane>
+<!--            <fx:include source="CommandListFrame.fxml" fx:id="commandListFrame"/>-->
+        </VBox>
+    </left>
+    
+    <right>
+        <VBox spacing="10" style="-fx-padding: 10;" prefWidth="400">
+<!--            <Pane fx:id="registerFrameContainer" prefHeight="150"/>-->
+<!--            <Pane fx:id="memoryFrameContainer" prefHeight="250"/>-->
+<!--            <Pane fx:id="frequencyFrameContainer" prefHeight="200"/>-->
+            <!-- Включаем фрейм регистров -->
+            <fx:include source="RegisterFrame.fxml" fx:id="registerFrame"/>
+
+            <!-- Включаем фрейм памяти -->
+            <fx:include source="MemoryFrame.fxml" fx:id="memoryFrame"/>
+
+            <!-- Включаем фрейм статистики -->
+            <fx:include source="InstructionFrequencyFrame.fxml" fx:id="frequencyFrame"/>
+        </VBox>
+    </right>
+</BorderPane>

@@ -1,5 +1,8 @@
 package org.example.cpu;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Cpu implements ICpu {
     int reg1;
     int reg2;
@@ -9,8 +12,20 @@ public class Cpu implements ICpu {
 
     Handler handler = new Handler();
 
+    private List<IObserver> Observers = new ArrayList<>();
+
     public Cpu(Memory mem){
         this.mem = mem;
+    }
+
+    public void AddObserver(IObserver o){
+        Observers.add(o);
+    }
+
+    private void notifyObservers() {
+        for (IObserver observer : Observers) {
+            observer.event();
+        }
     }
 
     public Handler getHandler(){
@@ -37,6 +52,14 @@ public class Cpu implements ICpu {
         }
     }
 
+    public void resetRegisters() {
+        reg1 = 0;
+        reg2 = 0;
+        reg3 = 0;
+        reg4 = 0;
+        notifyObservers(); // Уведомляем об изменении
+    }
+
     public void setRegister(String register, int value){
         switch(register){
             case "reg1":
@@ -52,6 +75,7 @@ public class Cpu implements ICpu {
                 reg4 = value;
                 break;
         }
+        notifyObservers();
     }
 
     @Override

@@ -2,10 +2,11 @@ package org.example.cpu;
 
 public class BCpu {
     static Cpu cpu;
+    static Memory memory = new Memory();
 
-    public static ICpu build(Memory mem){
+    public static ICpu build(){
         if(cpu == null){
-            cpu = new Cpu(mem);
+            cpu = new Cpu(memory);
             cpu.getHandler()
                     .add(new HMemCommands())
 //                    .add(new HLd())
@@ -18,5 +19,9 @@ public class BCpu {
 //                    .add(new HDiv());
         }
         return cpu;
+    }
+
+    public static Memory getMemory(){
+        return memory;
     }
 }

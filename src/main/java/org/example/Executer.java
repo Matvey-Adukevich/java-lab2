@@ -12,10 +12,15 @@ public class Executer {
         this.cpu = cpu;
     }
 
-    public void run(Iterable<Command> prog) throws CpuException{
-        for(Command command: prog){
+    public void run(Iterable<Command> prog) throws CpuException {
+        for (Command command : prog) {
             cpu.exec(command);
         }
+    }
+
+    public void run(Command command) throws CpuException{
+        cpu.exec(command);
+    }
 //        Iterator<Command> it = prog.iterator();
 //        while (it.hasNext()){
 //            cpu.exec(it.next());
@@ -24,5 +29,5 @@ public class Executer {
 //        for(Command command: prog){
 //            cpu.exec(command);
 //        }
-    }
 }
+
