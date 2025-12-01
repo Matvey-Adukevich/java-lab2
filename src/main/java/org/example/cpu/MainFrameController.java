@@ -69,7 +69,6 @@ public class MainFrameController implements IObserver {
 
     @FXML
     void resetExecution() {
-        System.out.println("Сброс выполнения - вызвано");
         program.resetExecution();
         cpu.resetRegisters();
         memoryFrameController.resetMemory();
