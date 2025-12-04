@@ -12,7 +12,8 @@ import org.example.Executer;
 import java.io.IOException;
 
 public class MainFrameController implements IObserver {
-    Program program = new Program();
+//    Program program = new Program();
+    private Program program;
     Cpu cpu = (Cpu) BCpu.build();
     Executer executer = new Executer(cpu);
 
@@ -26,9 +27,14 @@ public class MainFrameController implements IObserver {
 
     @FXML
     void initialize() {
+        // Загружаем программу из БД
+        ProgramDAO dao = new ProgramDAO_Hibernate();
+        program = dao.getProg();
+//        program.setProgramDAO(dao);
+
         program.AddObserver(this);
         cpu.AddObserver(this);
-        frequencyFrameController.updateFrequency(program);
+//        frequencyFrameController.updateFrequency(program);
     }
 
     @FXML

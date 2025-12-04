@@ -1,6 +1,6 @@
 package org.example.cpu;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -25,59 +25,55 @@ public class Program implements Iterable<Command> {
     ArrayList<IObserver> observers = new ArrayList<>();
 
     @Transient
-    ProgramDAO programDAO = new ProgramDAO_Hibernate();
+    private static ProgramDAO programDAO = new ProgramDAO_Hibernate();
 
 //    private boolean loadedFromDB = false;
 
     public Program() {
     }
 
-//    private void loadFromDatabase() {
-//        if(!loadedFromDB) {
-//            loadedFromDB = true;
-//            Program savedProgram = programDAO.getProgram();
-//            if (savedProgram != null && savedProgram.commands != null) {
-//                this.commands = new ArrayList<>(savedProgram.commands);
-//                this.currentExecutionIndex = savedProgram.currentExecutionIndex;
-//
-//                for (Command cmd : this.commands) {
-//                    cmd.setProgram(this);
-//                }
-//            }
-//        }
-//    }
-
-
-    private void saveToDatabase() {
-        programDAO.save(this);
-    }
-
     public void add(Command command){
         command.setProgram(this);
         command.setOrderIndex(commands.size());
         commands.add(command);
+        programDAO.saveCommand(command);
         event();
-        saveToDatabase();
+//        saveToDatabase();
     }
 
     public void remove(int index) {
         if (index >= 0 && index < commands.size()) {
+            Command cmd = commands.get(index);
+            programDAO.deleteCommand(cmd);
             commands.remove(index);
+            for (int i = index; i < commands.size(); i++) {
+                Command c = commands.get(i);
+                c.setOrderIndex(i);
+                programDAO.saveCommand(c);
+            }
+
             event();
-            saveToDatabase();
+
         }
     }
 
-    public void swap(int index1, int index2) {
-        if (index1 >= 0 && index1 < commands.size() &&
-                index2 >= 0 && index2 < commands.size() && index1 != index2) {
-            Command temp = commands.get(index1);
-            commands.set(index1, commands.get(index2));
-            commands.set(index2, temp);
-            event();
-            saveToDatabase();
-        }
+
+public void swap(int index1, int index2) {
+    if (index1 >= 0 && index1 < commands.size() &&
+            index2 >= 0 && index2 < commands.size() && index1 != index2) {
+        Command temp = commands.get(index1);
+        commands.set(index1, commands.get(index2));
+        commands.set(index2, temp);
+
+        commands.get(index1).setOrderIndex(index1);
+        commands.get(index2).setOrderIndex(index2);
+
+        programDAO.saveCommand(commands.get(index1));
+        programDAO.saveCommand(commands.get(index2));
+
+        event();
     }
+}
 
     public void event() {
         observers.forEach(action -> action.event());
@@ -125,7 +121,7 @@ public class Program implements Iterable<Command> {
         if (hasNextCommand()) {
             currentExecutionIndex++;
             event();
-            saveToDatabase();
+//            saveToDatabase();
             return commands.get(currentExecutionIndex);
         }
         return null;
@@ -134,7 +130,7 @@ public class Program implements Iterable<Command> {
     public void resetExecution() {
         currentExecutionIndex = -1;
         event();
-        saveToDatabase();
+//        saveToDatabase();
     }
 
     public int getCurrentExecutionIndex() {

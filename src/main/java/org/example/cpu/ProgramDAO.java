@@ -1,13 +1,9 @@
 package org.example.cpu;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class ProgramDAO {
+    public void saveProgram(Program program) {}
+    public Program getProg() { return new Program(); }
 
-    public void save(Program program) {
-    }
-
-    public void delete(Command command) {
-    }
+    public void saveCommand(Command command) {}
+    public void deleteCommand(Command command) {}
 }
